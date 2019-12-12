@@ -1,5 +1,4 @@
-const merge = (arr1: number[], arr2: number[]) => {
-
+function merge(arr1: number[], arr2: number[]) {
   const merged = [];
 
   while(arr1.length && arr2.length) {
@@ -10,20 +9,19 @@ const merge = (arr1: number[], arr2: number[]) => {
     }
   }
 
-  return [...merged, ...arr1, ...arr2];
-};
+  return merged.concat(arr1).concat(arr2);
+}
 
-const mergeSort = (array: number[]): number[] => {
-  if (array.length <= 1) {
+function mergeSort(array: number[]) {
+  if(array.length <= 1) {
     return array;
+  } else {
+    const middle = Math.floor(array.length / 2);
+    const firstHalf = array.slice(0, middle);
+    const secondHalf = array.slice(middle);
+    return merge(mergeSort(firstHalf), mergeSort(secondHalf));
   }
-
-  const midPoint = Math.floor(array.length / 2);
-
-  const firstHalf = mergeSort(array.slice(0, midPoint));
-  const secondHalf = mergeSort(array.slice(midPoint));
-  return merge(firstHalf, secondHalf);
-};
+}
 
 const testArray = [8, 3, 2, 1, 3, 4, 5, 6, 7, 8];
 
